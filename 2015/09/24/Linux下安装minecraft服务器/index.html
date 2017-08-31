@@ -35,7 +35,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="SpringCloud,WebHooks," />
+  <meta name="keywords" content="Minecraft," />
 
 
 
@@ -51,25 +51,27 @@
 
 
 
-<meta name="description" content="一、场景介绍：配置服务中心采用Git的方式存储配置文件
-每次更改配置后，都需要重启服务或者分别的发送POST请求才能更新配置   
-二、目标：当我们更新Git仓库的配置信息的时候，所有使用了修改的配置的服务都会刷新配置
-三、过程3.1由于会用到spring cloud的amqp，所以需要安装RabbitMQ，在这里安装RabbitMQ的安装过程就不再多说了，安装教程参考CentOS7下Rabbit">
+<meta name="description" content="1.创建一个MC服务器的目录并且切换过去2.下载MC服务器的压缩包1https://s3.amazonaws.com/Minecraft.Download/versions/1.7.10/minecraft_server.1.7.10.jar
+重命名
+1# cp minecraft_server.jar minecraft_server.1.7.10.jar
+3.启动服务器（由于阿里云内存只有1G">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring Cloud 学习--使用WebHooks自动更新配置中心">
-<meta property="og:url" content="http://yoursite.com/2017/08/30/Spring-Cloud-学习-使用WebHooks自动更新配置中心/index.html">
+<meta property="og:title" content="Linux下安装minecraft服务器">
+<meta property="og:url" content="http://yoursite.com/2015/09/24/Linux下安装minecraft服务器/index.html">
 <meta property="og:site_name" content="Andrew's Blog">
-<meta property="og:description" content="一、场景介绍：配置服务中心采用Git的方式存储配置文件
-每次更改配置后，都需要重启服务或者分别的发送POST请求才能更新配置   
-二、目标：当我们更新Git仓库的配置信息的时候，所有使用了修改的配置的服务都会刷新配置
-三、过程3.1由于会用到spring cloud的amqp，所以需要安装RabbitMQ，在这里安装RabbitMQ的安装过程就不再多说了，安装教程参考CentOS7下Rabbit">
-<meta property="og:updated_time" content="2017-08-31T06:36:43.747Z">
+<meta property="og:description" content="1.创建一个MC服务器的目录并且切换过去2.下载MC服务器的压缩包1https://s3.amazonaws.com/Minecraft.Download/versions/1.7.10/minecraft_server.1.7.10.jar
+重命名
+1# cp minecraft_server.jar minecraft_server.1.7.10.jar
+3.启动服务器（由于阿里云内存只有1G">
+<meta property="og:image" content="http://ovi3kpkrq.bkt.clouddn.com/clipboard%20%284%29.png">
+<meta property="og:image" content="http://ovi3kpkrq.bkt.clouddn.com/clipboard%20%285%29.png">
+<meta property="og:updated_time" content="2017-08-31T03:09:05.377Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring Cloud 学习--使用WebHooks自动更新配置中心">
-<meta name="twitter:description" content="一、场景介绍：配置服务中心采用Git的方式存储配置文件
-每次更改配置后，都需要重启服务或者分别的发送POST请求才能更新配置   
-二、目标：当我们更新Git仓库的配置信息的时候，所有使用了修改的配置的服务都会刷新配置
-三、过程3.1由于会用到spring cloud的amqp，所以需要安装RabbitMQ，在这里安装RabbitMQ的安装过程就不再多说了，安装教程参考CentOS7下Rabbit">
+<meta name="twitter:title" content="Linux下安装minecraft服务器">
+<meta name="twitter:description" content="1.创建一个MC服务器的目录并且切换过去2.下载MC服务器的压缩包1https://s3.amazonaws.com/Minecraft.Download/versions/1.7.10/minecraft_server.1.7.10.jar
+重命名
+1# cp minecraft_server.jar minecraft_server.1.7.10.jar
+3.启动服务器（由于阿里云内存只有1G">
 
 
 
@@ -81,7 +83,7 @@
   };
 </script>
 
-  <title> Spring Cloud 学习--使用WebHooks自动更新配置中心 | Andrew's Blog </title>
+  <title> Linux下安装minecraft服务器 | Andrew's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -211,7 +213,7 @@
             
             
               
-                Spring Cloud 学习--使用WebHooks自动更新配置中心
+                Linux下安装minecraft服务器
               
             
           </h1>
@@ -220,8 +222,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2017-08-30T15:03:04+08:00" content="2017-08-30">
-              2017-08-30
+            <time itemprop="dateCreated" datetime="2015-09-24T21:51:26+08:00" content="2015-09-24">
+              2015-09-24
             </time>
           </span>
 
@@ -259,13 +261,25 @@
       
 
       
-        <span itemprop="articleBody"><h2 id="一、场景介绍：">一、场景介绍：</h2><pre><code>配置服务中心采用Git的方式存储配置文件
-每次更改配置后，都需要重启服务或者分别的发送<span class="keyword">POST</span>请求才能更新配置   
-</code></pre><h2 id="二、目标：">二、目标：</h2><pre><code>当我们更新Git仓库的配置信息的时候，所有使用了修改的配置的服务都会刷新配置
-</code></pre><h2 id="三、过程">三、过程</h2><h3 id="3-1"><strong>3.1</strong></h3><p>由于会用到spring cloud的amqp，所以需要安装RabbitMQ，在这里安装RabbitMQ的安装过程就不再多说了，安装教程参考<a href="http://note.youdao.com/" target="_blank" rel="external">CentOS7下RabbitMQ服务安装配置</a>  </p>
-<h3 id="3-2"><strong>3.2</strong></h3><p>在config-server和client-server两个模块下的pom文件添加</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-cloud-starter-bus-amqp<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="3-3"><strong>3.3</strong></h3></span>
+        <span itemprop="articleBody"><h6 id="1-创建一个MC服务器的目录并且切换过去">1.创建一个MC服务器的目录并且切换过去</h6><h6 id="2-下载MC服务器的压缩包">2.下载MC服务器的压缩包</h6><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">https:</span><span class="comment">//s3.amazonaws.com/Minecraft.Download/versions/1.7.10/minecraft_server.1.7.10.jar</span></span><br></pre></td></tr></table></figure>
+<p>重命名</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># <span class="tag">cp</span> <span class="tag">minecraft_server</span><span class="class">.jar</span> <span class="tag">minecraft_server</span><span class="class">.1</span><span class="class">.7</span><span class="class">.10</span><span class="class">.jar</span></span><br></pre></td></tr></table></figure>
+<h6 id="3-启动服务器（由于阿里云内存只有1G，所以这里分配的512M）">3.启动服务器（由于阿里云内存只有1G，所以这里分配的512M）</h6><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -Xmx512M -Xms512M -jar minecraft_server<span class="class">.jar</span> nogui</span><br></pre></td></tr></table></figure>
+<p>然后会出现如下错误：<br><img src="http://ovi3kpkrq.bkt.clouddn.com/clipboard%20%284%29.png" alt="image"></p>
+<p>解决办法：  </p>
+<pre><code>vim eula.txt  
+eula=<span class="keyword">true</span> (默认是<span class="keyword">false</span>)
+
+vim <span class="keyword">server</span>.properties  
+online-mode=<span class="keyword">false</span>
+</code></pre><p>重新启动服务器（出现如下的log说明启动成功）<br><img src="http://ovi3kpkrq.bkt.clouddn.com/clipboard%20%285%29.png" alt="image"></p>
+<h6 id="4、为了启动方便我们自己编写一下启动的shell文件">4、为了启动方便我们自己编写一下启动的shell文件</h6><pre><code>在minecraft安装目录下新建一个 start.sh
+shell命令如下：
+
+<span class="shebang">#!/bin/bash</span>
+<span class="built_in">cd</span> /usr/minecraft/
+<span class="built_in">eval</span>  java -Xmx512M -Xms512M -jar minecraft_server.<span class="number">1.7</span>.<span class="number">10</span>.jar nogui &amp;
+</code></pre></span>
       
     </div>
 
@@ -273,9 +287,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/SpringCloud/" rel="tag">#SpringCloud</a>
-          
-            <a href="/tags/WebHooks/" rel="tag">#WebHooks</a>
+            <a href="/tags/Minecraft/" rel="tag">#Minecraft</a>
           
         </div>
       
@@ -284,13 +296,17 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/09/24/Linux下安装minecraft服务器/" rel="next" title="Linux下安装minecraft服务器">
-                <i class="fa fa-chevron-left"></i> Linux下安装minecraft服务器
+              <a href="/2015/06/19/MyEclipse-内存溢出异常解决/" rel="next" title="MyEclipse 内存溢出异常解决">
+                <i class="fa fa-chevron-left"></i> MyEclipse 内存溢出异常解决
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/30/Spring-Cloud-学习-使用WebHooks自动更新配置中心/" rel="prev" title="Spring Cloud 学习--使用WebHooks自动更新配置中心">
+                Spring Cloud 学习--使用WebHooks自动更新配置中心 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -422,7 +438,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、场景介绍："><span class="nav-text">一、场景介绍：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、目标："><span class="nav-text">二、目标：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、过程"><span class="nav-text">三、过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1"><span class="nav-text">3.1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2"><span class="nav-text">3.2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3"><span class="nav-text">3.3</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-创建一个MC服务器的目录并且切换过去"><span class="nav-text">1.创建一个MC服务器的目录并且切换过去</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-下载MC服务器的压缩包"><span class="nav-text">2.下载MC服务器的压缩包</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-启动服务器（由于阿里云内存只有1G，所以这里分配的512M）"><span class="nav-text">3.启动服务器（由于阿里云内存只有1G，所以这里分配的512M）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4、为了启动方便我们自己编写一下启动的shell文件"><span class="nav-text">4、为了启动方便我们自己编写一下启动的shell文件</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
