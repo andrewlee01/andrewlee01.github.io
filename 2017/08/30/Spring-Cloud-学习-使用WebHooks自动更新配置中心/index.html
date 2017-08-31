@@ -54,7 +54,7 @@
 <meta name="description" content="一、场景介绍：配置服务中心采用Git的方式存储配置文件
 每次更改配置后，都需要重启服务或者分别的发送POST请求才能更新配置   
 二、目标：当我们更新Git仓库的配置信息的时候，所有使用了修改的配置的服务都会刷新配置
-三、过程3.1由于会用到spring cloud的amqp，所以需要安装RabbitMQ，在这里安装RabbitMQ的安装过程就不再多说了，安装教程参考CentOS7下Rabbit">
+三、过程3.1   安装RabbitMQ由于会用到spring cloud的amqp，所以需要安装RabbitMQ，在这里安装RabbitMQ的安装过程就不再多说了，  安装教程参">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring Cloud 学习--使用WebHooks自动更新配置中心">
 <meta property="og:url" content="http://yoursite.com/2017/08/30/Spring-Cloud-学习-使用WebHooks自动更新配置中心/index.html">
@@ -62,14 +62,14 @@
 <meta property="og:description" content="一、场景介绍：配置服务中心采用Git的方式存储配置文件
 每次更改配置后，都需要重启服务或者分别的发送POST请求才能更新配置   
 二、目标：当我们更新Git仓库的配置信息的时候，所有使用了修改的配置的服务都会刷新配置
-三、过程3.1由于会用到spring cloud的amqp，所以需要安装RabbitMQ，在这里安装RabbitMQ的安装过程就不再多说了，安装教程参考CentOS7下Rabbit">
-<meta property="og:updated_time" content="2017-08-31T06:36:43.747Z">
+三、过程3.1   安装RabbitMQ由于会用到spring cloud的amqp，所以需要安装RabbitMQ，在这里安装RabbitMQ的安装过程就不再多说了，  安装教程参">
+<meta property="og:updated_time" content="2017-08-31T07:42:31.938Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring Cloud 学习--使用WebHooks自动更新配置中心">
 <meta name="twitter:description" content="一、场景介绍：配置服务中心采用Git的方式存储配置文件
 每次更改配置后，都需要重启服务或者分别的发送POST请求才能更新配置   
 二、目标：当我们更新Git仓库的配置信息的时候，所有使用了修改的配置的服务都会刷新配置
-三、过程3.1由于会用到spring cloud的amqp，所以需要安装RabbitMQ，在这里安装RabbitMQ的安装过程就不再多说了，安装教程参考CentOS7下Rabbit">
+三、过程3.1   安装RabbitMQ由于会用到spring cloud的amqp，所以需要安装RabbitMQ，在这里安装RabbitMQ的安装过程就不再多说了，  安装教程参">
 
 
 
@@ -262,9 +262,11 @@
         <span itemprop="articleBody"><h2 id="一、场景介绍：">一、场景介绍：</h2><pre><code>配置服务中心采用Git的方式存储配置文件
 每次更改配置后，都需要重启服务或者分别的发送<span class="keyword">POST</span>请求才能更新配置   
 </code></pre><h2 id="二、目标：">二、目标：</h2><pre><code>当我们更新Git仓库的配置信息的时候，所有使用了修改的配置的服务都会刷新配置
-</code></pre><h2 id="三、过程">三、过程</h2><h3 id="3-1"><strong>3.1</strong></h3><p>由于会用到spring cloud的amqp，所以需要安装RabbitMQ，在这里安装RabbitMQ的安装过程就不再多说了，安装教程参考<a href="http://note.youdao.com/" target="_blank" rel="external">CentOS7下RabbitMQ服务安装配置</a>  </p>
-<h3 id="3-2"><strong>3.2</strong></h3><p>在config-server和client-server两个模块下的pom文件添加</p>
+</code></pre><h2 id="三、过程">三、过程</h2><h3 id="3-1_安装RabbitMQ"><strong>3.1   安装RabbitMQ</strong></h3><p>由于会用到spring cloud的amqp，所以需要安装RabbitMQ，在这里安装RabbitMQ的安装过程就不再多说了，  安装教程参考<br><a href="http://note.youdao.com/" target="_blank" rel="external">CentOS7下RabbitMQ服务安装配置</a>  </p>
+<h3 id="3-2_Quick_Start"><strong>3.2 Quick Start</strong></h3><p>你需要做的就是使spring-cloud-starter-bus-amqp或spring-cloud-starter-bus-kafka添加到你的依赖管理中</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-cloud-starter-bus-amqp<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Spring Cloud将完成剩下的事。你唯一需要的事是确定broker (RabbitMQ or Kafka) 可用<br>如Rabbit<br>application.yml</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">spring</span>:</span><br><span class="line">  <span class="attribute">rabbitmq</span>:</span><br><span class="line">    <span class="attribute">host</span>: mybroker.com</span><br><span class="line">    <span class="attribute">port</span>: <span class="number">5672</span></span><br><span class="line">    <span class="attribute">username</span>: user</span><br><span class="line">    <span class="attribute">password</span>: secret</span><br></pre></td></tr></table></figure>
 <h3 id="3-3"><strong>3.3</strong></h3></span>
       
     </div>
@@ -422,7 +424,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、场景介绍："><span class="nav-text">一、场景介绍：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、目标："><span class="nav-text">二、目标：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、过程"><span class="nav-text">三、过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1"><span class="nav-text">3.1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2"><span class="nav-text">3.2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3"><span class="nav-text">3.3</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、场景介绍："><span class="nav-text">一、场景介绍：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、目标："><span class="nav-text">二、目标：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、过程"><span class="nav-text">三、过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1_安装RabbitMQ"><span class="nav-text">3.1   安装RabbitMQ</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2_Quick_Start"><span class="nav-text">3.2 Quick Start</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3"><span class="nav-text">3.3</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
