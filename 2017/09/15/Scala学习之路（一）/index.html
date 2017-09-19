@@ -35,8 +35,6 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="SpringCloud,WebHooks," />
-
 
 
 
@@ -51,27 +49,16 @@
 
 
 
-<meta name="description" content="一、场景介绍：配置服务中心采用Git的方式存储配置文件
-每次更改配置后，都需要重启服务或者分别的发送POST请求才能更新配置   
-二、目标：当我们更新Git仓库的配置信息的时候，所有使用了修改的配置的服务都会刷新配置
-三、过程3.1   安装RabbitMQ由于会用到spring cloud的amqp，所以需要安装RabbitMQ，在这里安装RabbitMQ的安装过程就不再多说了，  安装教程参">
+<meta name="description" content="做个行动派">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring Cloud 学习--使用WebHooks自动更新配置中心">
-<meta property="og:url" content="http://yoursite.com/2017/08/30/Spring-Cloud-学习-使用WebHooks自动更新配置中心/index.html">
+<meta property="og:title" content="Scala学习之路（一）">
+<meta property="og:url" content="http://yoursite.com/2017/09/15/Scala学习之路（一）/index.html">
 <meta property="og:site_name" content="Andrew's Blog">
-<meta property="og:description" content="一、场景介绍：配置服务中心采用Git的方式存储配置文件
-每次更改配置后，都需要重启服务或者分别的发送POST请求才能更新配置   
-二、目标：当我们更新Git仓库的配置信息的时候，所有使用了修改的配置的服务都会刷新配置
-三、过程3.1   安装RabbitMQ由于会用到spring cloud的amqp，所以需要安装RabbitMQ，在这里安装RabbitMQ的安装过程就不再多说了，  安装教程参">
-<meta property="og:image" content="http://ovi3kpkrq.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170901151147.png">
-<meta property="og:image" content="http://ovi3kpkrq.bkt.clouddn.com/5-6.png">
-<meta property="og:updated_time" content="2017-09-01T07:38:58.805Z">
+<meta property="og:description" content="做个行动派">
+<meta property="og:updated_time" content="2017-09-15T07:35:31.983Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring Cloud 学习--使用WebHooks自动更新配置中心">
-<meta name="twitter:description" content="一、场景介绍：配置服务中心采用Git的方式存储配置文件
-每次更改配置后，都需要重启服务或者分别的发送POST请求才能更新配置   
-二、目标：当我们更新Git仓库的配置信息的时候，所有使用了修改的配置的服务都会刷新配置
-三、过程3.1   安装RabbitMQ由于会用到spring cloud的amqp，所以需要安装RabbitMQ，在这里安装RabbitMQ的安装过程就不再多说了，  安装教程参">
+<meta name="twitter:title" content="Scala学习之路（一）">
+<meta name="twitter:description" content="做个行动派">
 
 
 
@@ -83,7 +70,7 @@
   };
 </script>
 
-  <title> Spring Cloud 学习--使用WebHooks自动更新配置中心 | Andrew's Blog </title>
+  <title> Scala学习之路（一） | Andrew's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -213,7 +200,7 @@
             
             
               
-                Spring Cloud 学习--使用WebHooks自动更新配置中心
+                Scala学习之路（一）
               
             
           </h1>
@@ -222,26 +209,11 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2017-08-30T15:03:04+08:00" content="2017-08-30">
-              2017-08-30
+            <time itemprop="dateCreated" datetime="2017-09-15T15:35:31+08:00" content="2017-09-15">
+              2017-09-15
             </time>
           </span>
 
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/技术文档/" itemprop="url" rel="index">
-                    <span itemprop="name">技术文档</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
           
 
           
@@ -261,47 +233,27 @@
       
 
       
-        <span itemprop="articleBody"><h2 id="一、场景介绍：">一、场景介绍：</h2><pre><code>配置服务中心采用Git的方式存储配置文件
-每次更改配置后，都需要重启服务或者分别的发送<span class="keyword">POST</span>请求才能更新配置   
-</code></pre><h2 id="二、目标：">二、目标：</h2><pre><code>当我们更新Git仓库的配置信息的时候，所有使用了修改的配置的服务都会刷新配置
-</code></pre><h2 id="三、过程">三、过程</h2><h3 id="3-1_安装RabbitMQ"><strong>3.1   安装RabbitMQ</strong></h3><p>由于会用到spring cloud的amqp，所以需要安装RabbitMQ，在这里安装RabbitMQ的安装过程就不再多说了，  安装教程参考<br><a href="http://note.youdao.com/" target="_blank" rel="external">CentOS7下RabbitMQ服务安装配置</a>  </p>
-<h3 id="3-2_Quick_Start"><strong>3.2 Quick Start</strong></h3><p>Spring cloud config 分为两部分<br>1、config-server 配置服务端，服务管理配置信息<br>2、config-client 客户端，客户端调用server端暴露接口获取配置信息<br>你需要做的就是使spring-cloud-starter-bus-amqp或spring-cloud-starter-bus-kafka添加到你的config-server和config-client依赖管理中</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-cloud-starter-bus-amqp<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>Spring Cloud将完成剩下的事。你唯一需要的事是确定broker (RabbitMQ or Kafka) 可用<br>如Rabbit<br>在application.yml（或bootstrap.yml）中添加如下配置信息</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">spring</span>:</span><br><span class="line">  <span class="attribute">rabbitmq</span>:</span><br><span class="line">    <span class="attribute">host</span>: mybroker.com</span><br><span class="line">    <span class="attribute">port</span>: <span class="number">5672</span></span><br><span class="line">    <span class="attribute">username</span>: user</span><br><span class="line">    <span class="attribute">password</span>: secret</span><br></pre></td></tr></table></figure>
-<p><strong>启动config-server和config-client</strong><br>到这里，我们已经能够通过<code>/bus/refresh</code>来实时更新总线上的属性配置了，<br>但是每次更新配置都需要手动去执行一下POST请求，这肯定不是我们最终的目的，所以这里就要用到git的webhooks来达到自动更新配置</p>
-<h3 id="3-3_WebHooks"><strong>3.3  WebHooks</strong></h3><p>打开gitlab上配置仓库的地址，添加webhooks<br><img src="http://ovi3kpkrq.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170901151147.png" alt="image"><br>（URL填写填写我们的配置中心触发刷新的地址，前提是必须git能够访问的到ip和端口。这样只要git仓库有push操作，便会触发配置中心的刷新地址，达到自动更新配置的目的）  </p>
-<h2 id="四、原理分析">四、原理分析</h2><p>通过使用Spring Cloud Bus与Spring Cloud Config的整合，并以RabbitMQ作为消息代理，实现了应用配置的动态更新<br><img src="http://ovi3kpkrq.bkt.clouddn.com/5-6.png" alt="image">  </p>
-<p>本文参考 <a href="http://spring-cloud.io/reference/bus/" target="_blank" rel="external">Spring-cloud Wiki</a><br><a href="http://blog.csdn.net/sosfnima/article/details/53178326" target="_blank" rel="external">Spring Cloud构建微服务架构（七）消息总线</a></p>
-</span>
+        <span itemprop="articleBody"></span>
       
     </div>
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/SpringCloud/" rel="tag">#SpringCloud</a>
-          
-            <a href="/tags/WebHooks/" rel="tag">#WebHooks</a>
-          
-        </div>
       
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/06/常用git命令整理/" rel="next" title="常用git命令整理">
-                <i class="fa fa-chevron-left"></i> 常用git命令整理
+              <a href="/2017/08/30/Spring-Cloud-学习-使用WebHooks自动更新配置中心/" rel="next" title="Spring Cloud 学习--使用WebHooks自动更新配置中心">
+                <i class="fa fa-chevron-left"></i> Spring Cloud 学习--使用WebHooks自动更新配置中心
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/09/15/Scala学习之路（一）/" rel="prev" title="Scala学习之路（一）">
-                Scala学习之路（一） <i class="fa fa-chevron-right"></i>
+              <a href="/2017/09/19/CentOs6-7下部署ShowDoc文档工具/" rel="prev" title=" CentOs6.7下部署ShowDoc文档工具">
+                 CentOs6.7下部署ShowDoc文档工具 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -434,7 +386,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、场景介绍："><span class="nav-text">一、场景介绍：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、目标："><span class="nav-text">二、目标：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、过程"><span class="nav-text">三、过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1_安装RabbitMQ"><span class="nav-text">3.1   安装RabbitMQ</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2_Quick_Start"><span class="nav-text">3.2 Quick Start</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3_WebHooks"><span class="nav-text">3.3  WebHooks</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、原理分析"><span class="nav-text">四、原理分析</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

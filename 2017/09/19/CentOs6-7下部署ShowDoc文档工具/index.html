@@ -35,7 +35,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="SpringCloud,WebHooks," />
+  <meta name="keywords" content="ShowDoc," />
 
 
 
@@ -51,27 +51,34 @@
 
 
 
-<meta name="description" content="一、场景介绍：配置服务中心采用Git的方式存储配置文件
-每次更改配置后，都需要重启服务或者分别的发送POST请求才能更新配置   
-二、目标：当我们更新Git仓库的配置信息的时候，所有使用了修改的配置的服务都会刷新配置
-三、过程3.1   安装RabbitMQ由于会用到spring cloud的amqp，所以需要安装RabbitMQ，在这里安装RabbitMQ的安装过程就不再多说了，  安装教程参">
+<meta name="description" content="准备 Nginx + PHP 环境安装 Nginx使用 yum 安装 Nginx： yum install nginx修改 /etc/nginx/nginx.conf 文件为如下内容：  
+user nginx;
+worker_processes auto;
+error_log /var/log/nginx/error.log;
+pid /run/nginx.pid;
+
+include /usr/">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring Cloud 学习--使用WebHooks自动更新配置中心">
-<meta property="og:url" content="http://yoursite.com/2017/08/30/Spring-Cloud-学习-使用WebHooks自动更新配置中心/index.html">
+<meta property="og:title" content=" CentOs6.7下部署ShowDoc文档工具">
+<meta property="og:url" content="http://yoursite.com/2017/09/19/CentOs6-7下部署ShowDoc文档工具/index.html">
 <meta property="og:site_name" content="Andrew's Blog">
-<meta property="og:description" content="一、场景介绍：配置服务中心采用Git的方式存储配置文件
-每次更改配置后，都需要重启服务或者分别的发送POST请求才能更新配置   
-二、目标：当我们更新Git仓库的配置信息的时候，所有使用了修改的配置的服务都会刷新配置
-三、过程3.1   安装RabbitMQ由于会用到spring cloud的amqp，所以需要安装RabbitMQ，在这里安装RabbitMQ的安装过程就不再多说了，  安装教程参">
-<meta property="og:image" content="http://ovi3kpkrq.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170901151147.png">
-<meta property="og:image" content="http://ovi3kpkrq.bkt.clouddn.com/5-6.png">
-<meta property="og:updated_time" content="2017-09-01T07:38:58.805Z">
+<meta property="og:description" content="准备 Nginx + PHP 环境安装 Nginx使用 yum 安装 Nginx： yum install nginx修改 /etc/nginx/nginx.conf 文件为如下内容：  
+user nginx;
+worker_processes auto;
+error_log /var/log/nginx/error.log;
+pid /run/nginx.pid;
+
+include /usr/">
+<meta property="og:updated_time" content="2017-09-19T02:47:40.688Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring Cloud 学习--使用WebHooks自动更新配置中心">
-<meta name="twitter:description" content="一、场景介绍：配置服务中心采用Git的方式存储配置文件
-每次更改配置后，都需要重启服务或者分别的发送POST请求才能更新配置   
-二、目标：当我们更新Git仓库的配置信息的时候，所有使用了修改的配置的服务都会刷新配置
-三、过程3.1   安装RabbitMQ由于会用到spring cloud的amqp，所以需要安装RabbitMQ，在这里安装RabbitMQ的安装过程就不再多说了，  安装教程参">
+<meta name="twitter:title" content=" CentOs6.7下部署ShowDoc文档工具">
+<meta name="twitter:description" content="准备 Nginx + PHP 环境安装 Nginx使用 yum 安装 Nginx： yum install nginx修改 /etc/nginx/nginx.conf 文件为如下内容：  
+user nginx;
+worker_processes auto;
+error_log /var/log/nginx/error.log;
+pid /run/nginx.pid;
+
+include /usr/">
 
 
 
@@ -83,7 +90,7 @@
   };
 </script>
 
-  <title> Spring Cloud 学习--使用WebHooks自动更新配置中心 | Andrew's Blog </title>
+  <title>  CentOs6.7下部署ShowDoc文档工具 | Andrew's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -213,7 +220,7 @@
             
             
               
-                Spring Cloud 学习--使用WebHooks自动更新配置中心
+                 CentOs6.7下部署ShowDoc文档工具
               
             
           </h1>
@@ -222,26 +229,11 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2017-08-30T15:03:04+08:00" content="2017-08-30">
-              2017-08-30
+            <time itemprop="dateCreated" datetime="2017-09-19T10:36:45+08:00" content="2017-09-19">
+              2017-09-19
             </time>
           </span>
 
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/技术文档/" itemprop="url" rel="index">
-                    <span itemprop="name">技术文档</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
           
 
           
@@ -261,18 +253,70 @@
       
 
       
-        <span itemprop="articleBody"><h2 id="一、场景介绍：">一、场景介绍：</h2><pre><code>配置服务中心采用Git的方式存储配置文件
-每次更改配置后，都需要重启服务或者分别的发送<span class="keyword">POST</span>请求才能更新配置   
-</code></pre><h2 id="二、目标：">二、目标：</h2><pre><code>当我们更新Git仓库的配置信息的时候，所有使用了修改的配置的服务都会刷新配置
-</code></pre><h2 id="三、过程">三、过程</h2><h3 id="3-1_安装RabbitMQ"><strong>3.1   安装RabbitMQ</strong></h3><p>由于会用到spring cloud的amqp，所以需要安装RabbitMQ，在这里安装RabbitMQ的安装过程就不再多说了，  安装教程参考<br><a href="http://note.youdao.com/" target="_blank" rel="external">CentOS7下RabbitMQ服务安装配置</a>  </p>
-<h3 id="3-2_Quick_Start"><strong>3.2 Quick Start</strong></h3><p>Spring cloud config 分为两部分<br>1、config-server 配置服务端，服务管理配置信息<br>2、config-client 客户端，客户端调用server端暴露接口获取配置信息<br>你需要做的就是使spring-cloud-starter-bus-amqp或spring-cloud-starter-bus-kafka添加到你的config-server和config-client依赖管理中</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-cloud-starter-bus-amqp<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>Spring Cloud将完成剩下的事。你唯一需要的事是确定broker (RabbitMQ or Kafka) 可用<br>如Rabbit<br>在application.yml（或bootstrap.yml）中添加如下配置信息</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">spring</span>:</span><br><span class="line">  <span class="attribute">rabbitmq</span>:</span><br><span class="line">    <span class="attribute">host</span>: mybroker.com</span><br><span class="line">    <span class="attribute">port</span>: <span class="number">5672</span></span><br><span class="line">    <span class="attribute">username</span>: user</span><br><span class="line">    <span class="attribute">password</span>: secret</span><br></pre></td></tr></table></figure>
-<p><strong>启动config-server和config-client</strong><br>到这里，我们已经能够通过<code>/bus/refresh</code>来实时更新总线上的属性配置了，<br>但是每次更新配置都需要手动去执行一下POST请求，这肯定不是我们最终的目的，所以这里就要用到git的webhooks来达到自动更新配置</p>
-<h3 id="3-3_WebHooks"><strong>3.3  WebHooks</strong></h3><p>打开gitlab上配置仓库的地址，添加webhooks<br><img src="http://ovi3kpkrq.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170901151147.png" alt="image"><br>（URL填写填写我们的配置中心触发刷新的地址，前提是必须git能够访问的到ip和端口。这样只要git仓库有push操作，便会触发配置中心的刷新地址，达到自动更新配置的目的）  </p>
-<h2 id="四、原理分析">四、原理分析</h2><p>通过使用Spring Cloud Bus与Spring Cloud Config的整合，并以RabbitMQ作为消息代理，实现了应用配置的动态更新<br><img src="http://ovi3kpkrq.bkt.clouddn.com/5-6.png" alt="image">  </p>
-<p>本文参考 <a href="http://spring-cloud.io/reference/bus/" target="_blank" rel="external">Spring-cloud Wiki</a><br><a href="http://blog.csdn.net/sosfnima/article/details/53178326" target="_blank" rel="external">Spring Cloud构建微服务架构（七）消息总线</a></p>
+        <span itemprop="articleBody"><h1 id="准备_Nginx_+_PHP_环境">准备 Nginx + PHP 环境</h1><h3 id="安装_Nginx">安装 Nginx</h3><p><strong>使用 yum 安装 Nginx：</strong> <code>yum install nginx</code><br><strong>修改 /etc/nginx/nginx.conf 文件为如下内容：</strong>  </p>
+<pre><code><span class="title">user</span> nginx;
+<span class="title">worker_processes</span> auto;
+<span class="title">error_log</span> /var/log/nginx/error.log;
+<span class="title">pid</span> /run/nginx.pid;
+
+<span class="title">include</span> /usr/share/nginx/modules/<span class="regexp">*.conf</span>;
+
+<span class="title">events</span> {
+    <span class="title">worker_connections</span> <span class="number">1024</span>;
+}
+
+<span class="title">http</span> {
+    <span class="title">log_format</span>  main  <span class="string">'<span class="variable">$remote_addr</span> - <span class="variable">$remote_user</span> [<span class="variable">$time_local</span>] "<span class="variable">$request</span>" '</span>
+                      <span class="string">'<span class="variable">$status</span> <span class="variable">$body_bytes_sent</span> "<span class="variable">$http_referer</span>" '</span>
+                      <span class="string">'"<span class="variable">$http_user_agent</span>" "<span class="variable">$http_x_forwarded_for</span>"'</span>;
+
+    <span class="title">access_log</span>  /var/log/nginx/access.log  main;
+
+    <span class="title">sendfile</span>            <span class="built_in">on</span>;
+    <span class="title">tcp_nopush</span>          <span class="built_in">on</span>;
+    <span class="title">tcp_nodelay</span>         <span class="built_in">on</span>;
+    <span class="title">keepalive_timeout</span>   <span class="number">65</span>;
+    <span class="title">types_hash_max_size</span> <span class="number">2048</span>;
+
+    <span class="title">include</span>             /etc/nginx/mime.types;
+    <span class="title">default_type</span>        application/octet-stream;
+    <span class="title">include</span> /etc/nginx/conf.d/<span class="regexp">*.conf</span>;
+
+    <span class="title">server</span> {
+        <span class="title">listen</span>       <span class="number">80</span>;
+        <span class="title">server_name</span>  <span class="number">127.0.0.1</span>;
+        <span class="title">root</span>         /var/www/html;
+        <span class="title">index</span> index.php index.html
+        error_page  <span class="number">404</span>              /<span class="number">404</span>.html;
+        <span class="title">location</span> = /40x.html {
+        }
+        <span class="title">error_page</span>   <span class="number">500</span> <span class="number">502</span> <span class="number">503</span> <span class="number">504</span>  /50x.html;
+        <span class="title">location</span> = /50x.html {
+        }
+        <span class="title">location</span> <span class="regexp">~ .php$</span> {
+            <span class="title">root</span>           /var/www/html;
+            <span class="title">fastcgi_pass</span>   <span class="number">127.0.0.1:9000</span>;
+            <span class="title">fastcgi_index</span>  index.php;
+            <span class="title">fastcgi_param</span>  SCRIPT_FILENAME  <span class="variable">$document_root</span><span class="variable">$fastcgi_script_name</span>;
+            <span class="title">include</span>        fastcgi_params;
+        }
+        <span class="title">location</span> <span class="regexp">~ /.ht</span> {
+            <span class="title">deny</span>  all;
+        }
+    }
+}
+</code></pre><p><strong>启动 Nginx 并设置为开机启动：</strong>  </p>
+<p><code>service nginx start</code><br><code>chkconfig nginx on</code></p>
+<h3 id="安装_PHP">安装 PHP</h3><p><strong>使用 yum 安装 php-fpm：</strong><br><code>yum install php php-gd php-fpm php-mcrypt php-mbstring php-mysql php-pdo</code>  </p>
+<p><strong>启动 php-fpm 并设置为开机启动：</strong>  </p>
+<p><code>service php-fpm start</code><br><code>chkconfig php-fpm on</code></p>
+<h3 id="创建项目">创建项目</h3><p><strong>下载安装 Composer</strong><br>Composer 是 PHP 的一个依赖管理工具，推荐使用 Composer 创建 ShowDoc 项目。</p>
+<p><strong>安装 Composer：</strong><br><code>curl -sS https://getcomposer.org/installer | php</code><br> <code>mv composer.phar /usr/local/bin/composer</code>  </p>
+<p><strong>设置 Composer 使用国内镜像</strong><br>执行命令：<code>composer config -g repo.packagist composer https://packagist.phpcomposer.com</code>  </p>
+<p><strong>使用 Composer 创建项目</strong><br>执行命令创建项目：<br><code>cd /var/www/html/ &amp;&amp; composer create-project  showdoc/sh</code>  </p>
+<p><strong>设置 showdoc 目录写权限</strong><br>执行命令赋予 showdoc 下部分目录的写权限  </p>
+<p>chmod a+w showdoc/install<br>chmod a+w showdoc/Sqlite<br>chmod a+w showdoc/Sqlite/showdoc.db.php<br>chmod a+w showdoc/Public/Uploads<br>chmod a+w showdoc/Application/Runtime<br>chmod a+w showdoc/server/Application/Runtime<br>chmod a+w showdoc/Application/Common/Conf/config.php<br>chmod a+w showdoc/Application/Home/Conf/config.php</p>
+<p>创建完毕，您现在可以通过浏览器访问 <a href="http://ip/showdoc/install/" target="_blank" rel="external">http://ip/showdoc/install/</a> ，进行语言的选择以后即可通过 <a href="http://ip/showdoc" target="_blank" rel="external">http://ip/showdoc</a> 查看站点效果。</p>
 </span>
       
     </div>
@@ -281,9 +325,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/SpringCloud/" rel="tag">#SpringCloud</a>
-          
-            <a href="/tags/WebHooks/" rel="tag">#WebHooks</a>
+            <a href="/tags/ShowDoc/" rel="tag">#ShowDoc</a>
           
         </div>
       
@@ -292,17 +334,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/06/常用git命令整理/" rel="next" title="常用git命令整理">
-                <i class="fa fa-chevron-left"></i> 常用git命令整理
+              <a href="/2017/09/15/Scala学习之路（一）/" rel="next" title="Scala学习之路（一）">
+                <i class="fa fa-chevron-left"></i> Scala学习之路（一）
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/15/Scala学习之路（一）/" rel="prev" title="Scala学习之路（一）">
-                Scala学习之路（一） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -434,7 +472,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、场景介绍："><span class="nav-text">一、场景介绍：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、目标："><span class="nav-text">二、目标：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、过程"><span class="nav-text">三、过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1_安装RabbitMQ"><span class="nav-text">3.1   安装RabbitMQ</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2_Quick_Start"><span class="nav-text">3.2 Quick Start</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3_WebHooks"><span class="nav-text">3.3  WebHooks</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、原理分析"><span class="nav-text">四、原理分析</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#准备_Nginx_+_PHP_环境"><span class="nav-text">准备 Nginx + PHP 环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装_Nginx"><span class="nav-text">安装 Nginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装_PHP"><span class="nav-text">安装 PHP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建项目"><span class="nav-text">创建项目</span></a></li></ol></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
