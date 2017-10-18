@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[CentOs6.7下部署ShowDoc文档工具]]></title>
+    <url>%2F2017%2F09%2F19%2FCentOs6-7%E4%B8%8B%E9%83%A8%E7%BD%B2ShowDoc%E6%96%87%E6%A1%A3%E5%B7%A5%E5%85%B7%2F</url>
+    <content type="text"><![CDATA[准备 Nginx + PHP 环境安装 Nginx使用 yum 安装 Nginx： yum install nginx修改 /etc/nginx/nginx.conf 文件为如下内容： user nginx; worker_processes auto; error_log /var/log/nginx/error.log; pid /run/nginx.pid; include /usr/share/nginx/modules/*.conf; events { worker_connections 1024; } http { log_format main '$remote_addr - $remote_user [$time_local] "$request" ' '$status $body_bytes_sent "$http_referer" ' '"$http_user_agent" "$http_x_forwarded_for"'; access_log /var/log/nginx/access.log main; sendfile on; tcp_nopush on; tcp_nodelay on; keepalive_timeout 65; types_hash_max_size 2048; include /etc/nginx/mime.types; default_type application/octet-stream; include /etc/nginx/conf.d/*.conf; server { listen 80; server_name 127.0.0.1; root /var/www/html; index index.php index.html error_page 404 /404.html; location = /40x.html { } error_page 500 502 503 504 /50x.html; location = /50x.html { } location ~ .php$ { root /var/www/html; fastcgi_pass 127.0.0.1:9000; fastcgi_index index.php; fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name; include fastcgi_params; } location ~ /.ht { deny all; } } } 启动 Nginx 并设置为开机启动： service nginx startchkconfig nginx on 安装 PHP使用 yum 安装 php-fpm：yum install php php-gd php-fpm php-mcrypt php-mbstring php-mysql php-pdo 启动 php-fpm 并设置为开机启动： service php-fpm startchkconfig php-fpm on 创建项目下载安装 ComposerComposer 是 PHP 的一个依赖管理工具，推荐使用 Composer 创建 ShowDoc 项目。 安装 Composer：curl -sS https://getcomposer.org/installer | php mv composer.phar /usr/local/bin/composer 设置 Composer 使用国内镜像执行命令：composer config -g repo.packagist composer https://packagist.phpcomposer.com 使用 Composer 创建项目执行命令创建项目：cd /var/www/html/ &amp;&amp; composer create-project showdoc/sh 设置 showdoc 目录写权限执行命令赋予 showdoc 下部分目录的写权限 chmod a+w showdoc/installchmod a+w showdoc/Sqlitechmod a+w showdoc/Sqlite/showdoc.db.phpchmod a+w showdoc/Public/Uploadschmod a+w showdoc/Application/Runtimechmod a+w showdoc/server/Application/Runtimechmod a+w showdoc/Application/Common/Conf/config.phpchmod a+w showdoc/Application/Home/Conf/config.php 创建完毕，您现在可以通过浏览器访问 http://ip/showdoc/install/ ，进行语言的选择以后即可通过 http://ip/showdoc 查看站点效果。]]></content>
+      <tags>
+        <tag>ShowDoc</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Scala学习之路（一）]]></title>
+    <url>%2F2017%2F09%2F15%2FScala%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%EF%BC%88%E4%B8%80%EF%BC%89%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Spring Cloud 学习--使用WebHooks自动更新配置中心]]></title>
+    <url>%2F2017%2F08%2F30%2FSpring-Cloud-%E5%AD%A6%E4%B9%A0-%E4%BD%BF%E7%94%A8WebHooks%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%2F</url>
+    <content type="text"><![CDATA[一、场景介绍：配置服务中心采用Git的方式存储配置文件 每次更改配置后，都需要重启服务或者分别的发送POST请求才能更新配置 二、目标：当我们更新Git仓库的配置信息的时候，所有使用了修改的配置的服务都会刷新配置 三、过程3.1 安装RabbitMQ由于会用到spring cloud的amqp，所以需要安装RabbitMQ，在这里安装RabbitMQ的安装过程就不再多说了， 安装教程参考CentOS7下RabbitMQ服务安装配置 3.2 Quick StartSpring cloud config 分为两部分1、config-server 配置服务端，服务管理配置信息2、config-client 客户端，客户端调用server端暴露接口获取配置信息你需要做的就是使spring-cloud-starter-bus-amqp或spring-cloud-starter-bus-kafka添加到你的config-server和config-client依赖管理中 123456789&lt;dependency&gt; &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt; &lt;artifactId&gt;spring-cloud-starter-bus-amqp&lt;/artifactId&gt;&lt;/dependency&gt;&lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;&lt;/dependency&gt; Spring Cloud将完成剩下的事。你唯一需要的事是确定broker (RabbitMQ or Kafka) 可用如Rabbit在application.yml（或bootstrap.yml）中添加如下配置信息 123456spring: rabbitmq: host: mybroker.com port: 5672 username: user password: secret 启动config-server和config-client到这里，我们已经能够通过/bus/refresh来实时更新总线上的属性配置了，但是每次更新配置都需要手动去执行一下POST请求，这肯定不是我们最终的目的，所以这里就要用到git的webhooks来达到自动更新配置 3.3 WebHooks打开gitlab上配置仓库的地址，添加webhooks（URL填写填写我们的配置中心触发刷新的地址，前提是必须git能够访问的到ip和端口。这样只要git仓库有push操作，便会触发配置中心的刷新地址，达到自动更新配置的目的） 四、原理分析通过使用Spring Cloud Bus与Spring Cloud Config的整合，并以RabbitMQ作为消息代理，实现了应用配置的动态更新 本文参考 Spring-cloud WikiSpring Cloud构建微服务架构（七）消息总线]]></content>
+      <categories>
+        <category>技术文档</category>
+      </categories>
+      <tags>
+        <tag>SpringCloud</tag>
+        <tag>WebHooks</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[常用git命令整理]]></title>
+    <url>%2F2017%2F03%2F06%2F%E5%B8%B8%E7%94%A8git%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86%2F</url>
+    <content type="text"><![CDATA[一、生成本地仓库在本地生成一个仓库(一般就是一个项目等)A：本地初始化一个文件夹为一个仓库，让git把这个文件夹当作一个仓库进行操作 1) git init 2) git remote add origin git@github.com:Andrew/Test.git 为刚刚初始化的仓库添加一个远程仓库联系，这样我们就能把本地的代码提交到远程了哈 B：直接在本地clone一个远程仓库，即把远程仓库的所有受管理文件复制到本地，然后进入仓库根目录就可以进行相关操作，比如修改(编写自己的代码)，推送(更新自己的代码到远程服务器) 1) git clone git@github.com:Andrew/Test.git 2) cd Test 现在就能在修改clone下的仓库(Test里面)下面的文件了。 二、对本地仓库内容进行修改A：git在本地修改时是基于branch进行操作的，每个branch可以保留不一样的副本 1) 新建分支: git branch branch_name 2) 查看本地所有分支列表: git branch -a 3) 切换到要进行操作的分支: git checkout branch_name 4) 跳过创建分支的步骤，直接创建(clone当前分支)并切换到新分支: git checkout -b branch_name 5) 跳过创建分支的步骤，直接创建(以指定的tag为分支版本)并切换到新分支: git checkout -b branch_name tag_name B：在当前分支上，对受管理的文本文件做一些修改，然后就可以commit到当前分支上 1) 先把修改添加到缓存: git add file_url_name (只是添加一个文件，git add . 命令可以把当前分支上的所有修改添加到缓存) 2) 把已经添加到缓存的内容进行commit: git commit -m “commit_content” 3) 此时就可以把当前分支的内容进行推送或者检出打包，合并等操作了。 三、提交本地代码到远程仓库命令： git push [remote_name] [local_branch]:[remote_brnach]命令的含义：把本地的[local_branch]上的内容更新到[remote_name]仓库的[remote_brnach]上面remote_name-&gt;某个远端的remote地址在本地对应的名称；local_branch-&gt;本地仓库的某个分支名称；remote_brnach-&gt;远端仓库的某个分支名称；注：上面命令可以简写为 “git push”,默认为 “oringin, local/master, origin/master”, 设置本地的某个分支为本地的master分支的命令是：git push –set-upstream oringin/master 四、推送内容和拉取远程的内容到本地1) git push [remote_name] [local_branch]:[remote_brnach] 2) git pull [remote_name] [remote_brnach]:[local_branch] 3) git fetch [remote_name] [remote_brnach]:[local_branch] 五、本地修改的相关操作1) 取消对文件的修改。放弃未提交的修改，还原到最后一次commit后的状态。 git checkout – [file-path-name] 2) 还原被加入缓存状态文件的状态。即，撤销之前的add file-path-name 操作 git reset – [file-path-name] (git reset HEAD – [file-path-name]) 3) 还原所有被加入缓存状态文件的状态。即，撤销之前的add . 操作 git reset (git reset HEAD) 4) 撤销本地某个文件的修改 git checkout – filename 5) 撤销所有本地文件的修改 git checkout – . (git checkout .) 6) 当前工作区内容不变,但是暂存区会回退到上一次提交之前 git reset head^ 7) 回退某个文件的版本到上一个版本 git reset HEAD^ [file-path-name] 8) 向前回退到第X个版本 git reset –soft HEAD~3 9) 将本地的状态回退到和远程的某个分支一样 git reset –hard origin/master 10) 回退到某个具体的版本 git reset version-number 六、回滚本地提交1) git reset –hard commit-id: 强制把当前分支回滚到所指定的commit记录 git reset –hard HEAD~3: 将最近3次的提交回滚 2) git reset –soft head^: 将最近1次的提交软回滚 git reset –soft head~3:将最近3次的提交软回滚 注: hard方式的回滚会直接抹消被回滚的commit的修改;而soft方式的话，只会把当前分支的commit指向回滚到的位置，然后被回滚的所有commit的修改会依然保存在本地，以git缓存的方式存在; 七、合并冲突1) git merge [branch_name] 把当前分支与目标分支合并 把当前分支的内容与目标分支的内容进行对比列出区别 手动解决冲突后进行commit，所以最后会有一个“Merge branch”的commit 解决完冲突后，在commi历史中会多一个merge的commit，里面可能包含一些冲突解决时代码的取舍痕迹。 2) git rebase [branch_name] 把当前分支与目标分支合并，把当前分支超前的commit追加到目标分支的commit之后 解决完冲突后，在commit历史上看不出有合并的痕迹。 八、合并时，如果有冲突如何解决?1)在使用 “git rebase”命令时,当不能顺利的进行合并时，那就是有冲突了，这个时候 就定位到两个分支有冲突的公共地方，主动的进行取舍保留，确定好要保存的版本快照 后，回到命令行，执行 “git add .”把解决分支产生的修改添加到缓存中，然后再执行 “git rebase –continue” 2)在使用 “git am”命令时,当不能顺利的把补丁文件应用到当前分支上时， 那就是有冲突了，这个时候就定位到有冲突的公共地方，主动的进行取舍保留，确定好要保存的版本快照后， 回到命令行，执行 “git add.”把解决分支产生的修改添加到缓存中，然后再执行 “git am –continue” 九、查看历史提交的commit内容1) git log : 显示当前分支的历史commit内容. 2) git log –stat : 显示当前分支的历史commit内容和每次commit对应修改了哪些文件 十、git stash，强大的当前工作状态暂存方式应用场景:比如自己正在开发一个功能,突然接到修改一个紧急bug的任务, 就可以先暂存自己的工作状态, 修改完bug后, 返回到自己的工作进度. 1) git stash save “name” 把当前工作目录的所有修改添加到一个stash记录里面. 2) git stash pop “stash-index” 把某个index的stash记录加载(弹出)到当前工作目录(同时stash列表里移除对应的记录) 3) git stash apply “name” 把某个index的stash记录加载(应用)到当前工作目录(同时stash列表里依旧保留对应的记录)。 4) git stash drop “stash-index” 移除掉某个index对应的stash记录。]]></content>
+      <categories>
+        <category>技术文档</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Linux下安装minecraft服务器]]></title>
+    <url>%2F2015%2F09%2F24%2FLinux%E4%B8%8B%E5%AE%89%E8%A3%85minecraft%E6%9C%8D%E5%8A%A1%E5%99%A8%2F</url>
+    <content type="text"><![CDATA[1.创建一个MC服务器的目录并且切换过去2.下载MC服务器的压缩包1https://s3.amazonaws.com/Minecraft.Download/versions/1.7.10/minecraft_server.1.7.10.jar 重命名 1# cp minecraft_server.jar minecraft_server.1.7.10.jar 3.启动服务器（由于阿里云内存只有1G，所以这里分配的512M）1java -Xmx512M -Xms512M -jar minecraft_server.jar nogui 然后会出现如下错误： 解决办法： vim eula.txt eula=true (默认是false) vim server.properties online-mode=false 重新启动服务器（出现如下的log说明启动成功） 4、为了启动方便我们自己编写一下启动的shell文件在minecraft安装目录下新建一个 start.sh shell命令如下： #!/bin/bash cd /usr/minecraft/ eval java -Xmx512M -Xms512M -jar minecraft_server.1.7.10.jar nogui &amp;]]></content>
+      <categories>
+        <category>技术文档</category>
+      </categories>
+      <tags>
+        <tag>Minecraft</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[MyEclipse 内存溢出异常解决]]></title>
+    <url>%2F2015%2F06%2F19%2FMyEclipse-%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E5%BC%82%E5%B8%B8%E8%A7%A3%E5%86%B3%2F</url>
+    <content type="text"><![CDATA[1.使用本地JDK，并配置内存分配 2.给MyEclipse分配合理的java虚拟机内存在MyEclipse安装目录X:\MyEclipse\MyEclipse10下的myeclipse.ini的文件中添加如下内容。 12345678-vmargs-Xms1500m-Xmx2048m-XX:MaxPermSize=1024m-XX:ReservedCodeCacheSize=512m-XX:PermSize=512M-XX:MaxPermSize=1024M-Dosgi.nls.warnings=ignore 重启MyEclipse即可]]></content>
+      <categories>
+        <category>技术文档</category>
+      </categories>
+      <tags>
+        <tag>MyEclipse</tag>
+      </tags>
+  </entry>
+</search>
