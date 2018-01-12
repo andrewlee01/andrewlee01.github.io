@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Spring Boot 单元测试——Mock]]></title>
+    <url>%2F2018%2F01%2F12%2FSpring-Boot-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E2%80%94%E2%80%94Mock%2F</url>
+    <content type="text"><![CDATA[一、场景介绍：在很多业务场景中，我们需要远程调用另一个微服务上面的接口；很多时候我们并不能在单元测试中去真实的远程调用其他接口，但是业务上却依赖其他接口的返回值。所以我们需要模拟外部依赖，这时就需要用到Mock测试 二、目标：在测试过程中，对那些不容易构建的对象用一个虚拟对象来代替测试 三、过程3.1 添加POM依赖123456&lt;dependency&gt; &lt;groupId&gt;org.mockito&lt;/groupId&gt; &lt;artifactId&gt;mockito-all&lt;/artifactId&gt; &lt;version&gt;1.8.5&lt;/version&gt; &lt;scope&gt;test&lt;/scope&gt;&lt;/dependency&gt; 3.2 Junit单元测试@RunWith(SpringJUnit4ClassRunner.class) @SpringBootTest(classes = CommonApplication.class) @FixMethodOrder(MethodSorters.NAME_ASCENDING) public class MockServiceTest{ //@Mock @Autowired IService iService; @Test public void btestService(){ //创建mock对象，参数可以是类，也可以是接口 iService = mock(IService.class); //设置方法的预期返回值 when(iService.getHelloWorld()).thenReturn("Test"); String result = iService.getHelloWorld(); //junit测试 Assert.assertEquals("Test", result); } } 注意：@Mock注解会和@Autowired冲突，导致注入失败，不能两个注解同时出现。所以采用这种方法object = mock(object.class); 创建mock对象不能对final，Anonymous ，primitive类进行mock.(网上写的，未做实验)]]></content>
+      <categories>
+        <category>技术文档</category>
+      </categories>
+      <tags>
+        <tag>Mock</tag>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Spring Boot 单元测试——H2数据库配置]]></title>
+    <url>%2F2018%2F01%2F12%2FSpring-Boot-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E2%80%94%E2%80%94H2%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE%2F</url>
+    <content type="text"><![CDATA[一、场景介绍：在写单元测试时，我们往往会遇到一个问题，测试用例所依赖的数据库数据被修改或删除了，或者在一个新的环境下所依赖的数据库不存在，导致单元测试无法通过，进而构建失败。在这种情况下，使用H2内存数据库来模拟数据库环境是一个很好的解决方案 二、目标：当我们运行单元测试时，不依赖业务相关数据库，避免数据库正常数据被删除或修改导致业务运行异常 三、过程3.1 添加POM依赖12345&lt;dependency&gt; &lt;groupId&gt;com.h2database&lt;/groupId &gt; &lt;artifactId&gt;h2&lt;/artifactId&gt; &lt;version&gt;1.4.192&lt;/version&gt;&lt;/dependency&gt; 3.2 添加数据库配置123456789spring: datasource: name: h2 url: jdbc:h2:mem:testdb;MODE=MYSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;INIT=RUNSCRIPT FROM './src/test/resources/init_table.sql'; username: root password: driver-class-name: org.h2.Driver jpa: show-sql: true 1、这里面的INIT=RUNSCRIPT，这里用来初始化init_table.sql脚本的；比如某些测试用例需要初始数据，这时就需要在运行测试用例之前执行初始化SQL脚本。2、MODE=MySql ，以mysql的模式运行3、DB_CLOSE_DELAY=-1 关闭参数，延时关闭为代码退出时间。4、jdbc:h2:mem 意思使用h2的内存数据库版本，还可以有file等各种方式 3.3 编写数据库实体类1234567891011@Entitypublic class User &#123; @Id @GeneratedValue(strategy = GenerationType.AUTO) private Long id; @Column private String name; ...这里省略了getter，setter方法，实际运用需要加上&#125; 3.4 编写数据访问层接口123@Repositorypublic interface UserRepository extends JpaRepository&lt;User, Long&gt;&#123;&#125; 3.5 Junit单元测试123456789101112131415@RunWith(SpringJUnit4ClassRunner.class)@SpringBootTest(classes = CommonApplication.class)@FixMethodOrder(MethodSorters.NAME_ASCENDING)public class MockServiceTest&#123; @Autowired IService iService; @Test public void save()&#123; User user = new User(); user.setName("TEST"); iService.save(user); &#125;&#125; 四、运行结果 五、总结从日志中可以看出，由于H2是关系内存数据库，当程序启动的时候，会在内存中创建表，并将数据存储在内存中，当重启程序后，会自动删除内存中的数据，从而可以很好的用来做dao层的单元测试和service层的单元测试，使整个程序不会依赖具体的数据库，同时也提高了单元测试的效率。]]></content>
+      <categories>
+        <category>技术文档</category>
+      </categories>
+      <tags>
+        <tag>H2</tag>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[CentOs6.7下部署ShowDoc文档工具]]></title>
     <url>%2F2017%2F09%2F19%2FCentOs6-7%E4%B8%8B%E9%83%A8%E7%BD%B2ShowDoc%E6%96%87%E6%A1%A3%E5%B7%A5%E5%85%B7%2F</url>
     <content type="text"><![CDATA[准备 Nginx + PHP 环境安装 Nginx使用 yum 安装 Nginx： yum install nginx修改 /etc/nginx/nginx.conf 文件为如下内容： user nginx; worker_processes auto; error_log /var/log/nginx/error.log; pid /run/nginx.pid; include /usr/share/nginx/modules/*.conf; events { worker_connections 1024; } http { log_format main '$remote_addr - $remote_user [$time_local] "$request" ' '$status $body_bytes_sent "$http_referer" ' '"$http_user_agent" "$http_x_forwarded_for"'; access_log /var/log/nginx/access.log main; sendfile on; tcp_nopush on; tcp_nodelay on; keepalive_timeout 65; types_hash_max_size 2048; include /etc/nginx/mime.types; default_type application/octet-stream; include /etc/nginx/conf.d/*.conf; server { listen 80; server_name 127.0.0.1; root /var/www/html; index index.php index.html error_page 404 /404.html; location = /40x.html { } error_page 500 502 503 504 /50x.html; location = /50x.html { } location ~ .php$ { root /var/www/html; fastcgi_pass 127.0.0.1:9000; fastcgi_index index.php; fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name; include fastcgi_params; } location ~ /.ht { deny all; } } } 启动 Nginx 并设置为开机启动： service nginx startchkconfig nginx on 安装 PHP使用 yum 安装 php-fpm：yum install php php-gd php-fpm php-mcrypt php-mbstring php-mysql php-pdo 启动 php-fpm 并设置为开机启动： service php-fpm startchkconfig php-fpm on 创建项目下载安装 ComposerComposer 是 PHP 的一个依赖管理工具，推荐使用 Composer 创建 ShowDoc 项目。 安装 Composer：curl -sS https://getcomposer.org/installer | php mv composer.phar /usr/local/bin/composer 设置 Composer 使用国内镜像执行命令：composer config -g repo.packagist composer https://packagist.phpcomposer.com 使用 Composer 创建项目执行命令创建项目：cd /var/www/html/ &amp;&amp; composer create-project showdoc/sh 设置 showdoc 目录写权限执行命令赋予 showdoc 下部分目录的写权限 chmod a+w showdoc/installchmod a+w showdoc/Sqlitechmod a+w showdoc/Sqlite/showdoc.db.phpchmod a+w showdoc/Public/Uploadschmod a+w showdoc/Application/Runtimechmod a+w showdoc/server/Application/Runtimechmod a+w showdoc/Application/Common/Conf/config.phpchmod a+w showdoc/Application/Home/Conf/config.php 创建完毕，您现在可以通过浏览器访问 http://ip/showdoc/install/ ，进行语言的选择以后即可通过 http://ip/showdoc 查看站点效果。]]></content>
